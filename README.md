@@ -7,6 +7,7 @@ A comprehensive shared housing and finance management platform designed to simpl
 The Mess Hub is a modern web application built with **PHP**, **MySQL**, and **Tailwind CSS** that helps manage shared housing arrangements. It provides tools for meal logging, expense tracking, deposit management, and automatic financial calculations to ensure fair and transparent settlements among members.
 
 ### Key Statistics
+
 - **Database**: MySQL with 9 core tables, 8+ relationships
 - **Architecture**: MVC pattern with middleware support
 - **Security**: Prepared statements, CSRF protection, session-based auth
@@ -16,23 +17,27 @@ The Mess Hub is a modern web application built with **PHP**, **MySQL**, and **Ta
 ## ✨ Features
 
 ### 👥 User Management
+
 - **Three-tier role system**: Seeker, Member, Manager
 - Registration and secure authentication
 - Profile management with password management
 - Session-based authorization
 
 ### 🏠 Mess Management
+
 - Create and manage multiple messes
 - Invite members and manage join requests
 - Track mess details (name, location, rent)
 
 ### 🍽️ Meal Tracking
+
 - Log daily meal entries per member per mess
 - Prevent duplicate entries for same date
 - Track meal counts (supports fractional meals)
 - Recent meal history view
 
 ### 💰 Finance Management
+
 - **Expense Tracking**: Record daily bazaar expenses
 - **Deposit Management**: Track member contributions
 - **Automatic Calculations**: Real-time meal rate computation
@@ -40,11 +45,13 @@ The Mess Hub is a modern web application built with **PHP**, **MySQL**, and **Ta
 - **Transaction History**: Complete audit trail
 
 ### 📊 Dashboards
+
 - **Member Dashboard**: Personal balance, meal history, deposits
 - **Manager Dashboard**: Expense overview, pending requests, member summaries
 - **Seeker Dashboard**: Browse available messes, view profiles, track join request status
 
 ### 🔐 Security
+
 - Prepared SQL statements (SQL injection protection)
 - CSRF tokens on all forms
 - Password hashing with PHP's `PASSWORD_DEFAULT`
@@ -54,28 +61,34 @@ The Mess Hub is a modern web application built with **PHP**, **MySQL**, and **Ta
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - PHP 8.0+
 - MySQL 5.7+
 - Composer (optional, for future dependencies)
 
 ### Installation
+
 1. **Clone or extract the project**
+
    ```bash
-   cd bhattWEB
+   cd themesshub
    ```
 
 2. **Configure environment**
+
    ```bash
    cp .env.example .env
    # Edit .env with your database credentials
    ```
 
 3. **Create database**
+
    ```bash
    mysql -u root -p < schema.sql
    ```
 
 4. **Start development server**
+
    ```bash
    php -S localhost:8001
    ```
@@ -96,7 +109,7 @@ For detailed setup instructions, see [SETUP.md](SETUP.md).
 ## 🏗️ Project Structure
 
 ```
-bhattWEB/
+themesshub/
 ├── app/
 │   ├── Controllers/       # Application logic (8 controllers)
 │   ├── Models/           # Database models (7 models)
@@ -116,6 +129,7 @@ bhattWEB/
 ## 🔌 API Endpoints
 
 ### Authentication
+
 - `GET /` - Home page
 - `GET /register` - Registration form
 - `POST /register` - Create account
@@ -124,28 +138,33 @@ bhattWEB/
 - `POST /logout` - End session
 
 ### Dashboard & Profile
+
 - `GET /dashboard` - Role-based dashboard
 - `GET /profile` - User profile
 - `POST /profile` - Update profile
 - `POST /profile/password` - Change password
 
 ### Mess Management
+
 - `GET /messes/create` - Create mess form
 - `POST /messes` - Store new mess
 - `GET /messes/:id/edit` - Edit mess form
 - `POST /messes/update` - Update mess
 
 ### Meal Tracking
+
 - `GET /meals/create` - Log meal form
 - `POST /meals` - Save meal entry
 
 ### Finances
+
 - `GET /expenses/create` - Add expense form
 - `POST /expenses` - Record expense
 - `GET /deposits/create` - Add deposit form
 - `POST /deposits` - Record deposit
 
 ### Member Management
+
 - `GET /join-requests` - View pending requests
 - `POST /join-requests/approve` - Approve request
 - `POST /join-requests/reject` - Reject request
@@ -153,6 +172,7 @@ bhattWEB/
 ## 💾 Database
 
 The system uses **MySQL 5.7+** with these core tables:
+
 - `roles` - User role definitions
 - `users` - User accounts and authentication
 - `messes` - Shared housing groups
@@ -185,16 +205,17 @@ See [DATABASE.md](DATABASE.md) for complete schema documentation.
 
 ## 📋 System Requirements
 
-| Requirement | Version |
-|-------------|---------|
-| PHP | 8.0 or higher |
-| MySQL | 5.7 or higher |
-| Web Server | Apache/Nginx |
-| Browser | Modern (Chrome, Firefox, Safari, Edge) |
+| Requirement | Version                                |
+| ----------- | -------------------------------------- |
+| PHP         | 8.0 or higher                          |
+| MySQL       | 5.7 or higher                          |
+| Web Server  | Apache/Nginx                           |
+| Browser     | Modern (Chrome, Firefox, Safari, Edge) |
 
 ## 📖 Usage Examples
 
 ### For Members
+
 1. Register as a Seeker
 2. Browse available messes
 3. Request to join a mess
@@ -203,6 +224,7 @@ See [DATABASE.md](DATABASE.md) for complete schema documentation.
 6. Download balance reports
 
 ### For Managers
+
 1. Create a mess
 2. Invite and manage members
 3. Record daily expenses
@@ -213,6 +235,7 @@ See [DATABASE.md](DATABASE.md) for complete schema documentation.
 ## 🤝 Contributing
 
 When contributing to this project:
+
 1. Follow the existing MVC structure
 2. Use prepared statements for all database queries
 3. Add CSRF tokens to all forms

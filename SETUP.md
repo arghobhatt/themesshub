@@ -7,6 +7,7 @@ Complete step-by-step guide to set up and configure The Mess Hub locally or on a
 Verify you have the following installed:
 
 ### System Requirements
+
 - **PHP**: 8.0 or higher
   ```bash
   php --version
@@ -18,13 +19,16 @@ Verify you have the following installed:
 - **Web Server**: Apache with `mod_rewrite` or Nginx (optional for development)
 
 ### PHP Extensions
+
 Ensure these extensions are enabled:
+
 - `pdo` - Database abstraction
 - `pdo_mysql` - MySQL driver for PDO
 - `session` - Session handling
 - `filter` - Input filtering
 
 Check enabled extensions:
+
 ```bash
 php -m | grep -E 'pdo|session|filter'
 ```
@@ -34,30 +38,35 @@ php -m | grep -E 'pdo|session|filter'
 ### Step 1: Obtain the Project
 
 **Option A: Clone from repository**
+
 ```bash
-git clone <repository-url> bhattWEB
-cd bhattWEB
+git clone https://github.com/arghobhatt/themesshub.git themesshub
+cd themesshub
 ```
 
 **Option B: Extract from archive**
+
 ```bash
-unzip bhattWEB.zip
-cd bhattWEB
+unzip themesshub.zip
+cd themesshub
 ```
 
 ### Step 2: Create Environment Configuration
 
 **Copy the example environment file:**
+
 ```bash
 cp .env.example .env
 ```
 
 **Edit `.env` with your database credentials:**
+
 ```bash
 nano .env
 ```
 
 **Content of `.env`:**
+
 ```env
 # Database Connection
 DB_HOST=127.0.0.1
@@ -72,17 +81,20 @@ DB_CHARSET=utf8mb4
 ### Step 3: Create Database
 
 **Option A: Using MySQL CLI**
+
 ```bash
 mysql -u root -p < schema.sql
 ```
 
 **Option B: Using MySQL GUI (phpMyAdmin)**
+
 1. Open phpMyAdmin
 2. Click "SQL" tab
 3. Open `schema.sql` file
 4. Execute
 
 **Verify database creation:**
+
 ```bash
 mysql -u root -p -e "SHOW DATABASES LIKE 'mess_hub';"
 ```
@@ -103,8 +115,9 @@ chmod 755 storage/ 2>/dev/null || true
 ### Step 5: Start Development Server
 
 **Built-in PHP server (for development):**
+
 ```bash
-cd /path/to/bhattWEB
+cd /path/to/themesshub
 php -S localhost:8000
 ```
 
@@ -149,6 +162,7 @@ Access: http://localhost:8000
 **Apache (.htaccess for URL rewriting)**
 
 Already included at project root or place in `public/`:
+
 ```apache
 <IfModule mod_rewrite.c>
     RewriteEngine On
@@ -165,7 +179,7 @@ Already included at project root or place in `public/`:
 server {
     listen 80;
     server_name yourdomain.com;
-    root /var/www/bhattWEB;
+    root /var/www/themesshub;
 
     location / {
         try_files $uri $uri/ /index.php?$query_string;
@@ -183,6 +197,7 @@ server {
 ### Environment Setup
 
 **Production `.env` example:**
+
 ```env
 DB_HOST=db.example.com
 DB_NAME=mess_hub_prod
@@ -218,6 +233,7 @@ $charset = env('DB_CHARSET', 'utf8mb4');
 ### Session Configuration (`index.php`)
 
 Sessions are automatically configured with:
+
 - HttpOnly cookies (prevents XSS attacks)
 - SameSite=Lax (prevents CSRF attacks)
 - Secure flag (HTTPS only in production)
@@ -235,17 +251,21 @@ $pdo = new PDO($dsn, $user, $pass, [
 ## 🐛 Troubleshooting
 
 ### Database Connection Error
+
 **Error**: `SQLSTATE[HY000]: General error: 1030 Got error...`
 
 **Solution**:
+
 1. Verify database credentials in `.env`
 2. Check MySQL is running: `mysql -u root -p -e "SELECT 1;"`
 3. Verify database exists: `mysql -u root -p -e "SHOW DATABASES;"`
 
 ### PDO Extension Not Loaded
+
 **Error**: `Call to undefined class PDO`
 
 **Solution**:
+
 ```bash
 # Ubuntu/Debian
 sudo apt-get install php-pdo php-mysql
@@ -258,29 +278,36 @@ php -m | grep pdo
 ```
 
 ### Permission Denied Errors
+
 **Error**: `Warning: fopen(/path/to/file): failed to open stream`
 
 **Solution**:
+
 ```bash
-sudo chown -R www-data:www-data /var/www/bhattWEB
-chmod -R 755 /var/www/bhattWEB
+sudo chown -R www-data:www-data /var/www/themesshub
+chmod -R 755 /var/www/themesshub
 ```
 
 ### File Not Found (404 on All Routes)
+
 **Cause**: URL rewriting not working
 
 **Apache solution**:
+
 1. Enable mod_rewrite: `sudo a2enmod rewrite`
 2. Restart Apache: `sudo systemctl restart apache2`
 
 **Nginx solution**:
+
 - Check nginx config includes `try_files` rule
 - Reload nginx: `sudo systemctl reload nginx`
 
 ### Session Not Persisting
+
 **Cause**: Session directory not writable
 
 **Solution**:
+
 ```bash
 sudo chown -R www-data:www-data /var/lib/php/sessions
 chmod -R 755 /var/lib/php/sessions
@@ -360,6 +387,7 @@ sudo certbot certonly --webroot -w /var/www/yourdomain -d yourdomain.com
 ### Database Indexes
 
 The schema includes optimized indexes:
+
 - User roles lookup
 - Mess by creator
 - Membership lookups
@@ -368,6 +396,7 @@ The schema includes optimized indexes:
 ### Query Optimization
 
 All queries use:
+
 - Prepared statements (prevents SQL injection)
 - Bound parameters (1 ms overhead, major security benefit)
 - Indexed columns for WHERE clauses
@@ -376,6 +405,7 @@ All queries use:
 ### Caching Considerations
 
 For future optimization:
+
 - Cache meal rates (recalculate daily)
 - Cache member balances (recalculate on deposit/expense)
 - Use Redis for session storage in high-traffic scenarios
@@ -435,6 +465,7 @@ After setup, verify:
 ## 📞 Support
 
 For setup issues:
+
 1. Check error logs: `php -S localhost:8000` shows errors in console
 2. Verify all prerequisites installed
 3. Ensure database connectivity
